@@ -99,6 +99,12 @@ public class Estabelecimento {
 
     public void gerarPedidoUnico(Pedido pedido) {
         pedido.setStatus("Em preparação");
+        Pedido lastOrder = pedidosAtivos.get(pedidosAtivos.size() - 1);
+        if(lastOrder == null){
+            pedido.setId(0);
+        } else {
+            pedido.setId(lastOrder.getId() + 1);
+        }
         armazenarPedidoAtivo(pedido);
     }
 
