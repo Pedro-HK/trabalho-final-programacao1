@@ -1,7 +1,4 @@
 
-import java.awt.Component;
-import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -16,24 +13,30 @@ import javax.swing.DefaultListModel;
  */
 public class App extends javax.swing.JFrame {
     
-    // private Estabelecimento estabelecimento;
-    // private Cliente cliente;
+    private Estabelecimento estabelecimento;
+    private Cliente cliente;
+    private DefaultListModel itemsPedido = new DefaultListModel<>();
 
     /**
      * Creates new form App
      */
     public App() {
-        // this.cliente = new Cliente();
-        // this.estabelecimento = new Estabelecimento();
+        this.cliente = new Cliente("José");
+        this.estabelecimento = new Estabelecimento("Dog Mania");
         initComponents();
-        this.snackSelector.addItem("X-Salada");
-        this.snackSelector.addItem("X-Bacon");
-        this.dishSelector.addItem("Parmegiana");
-        this.dishSelector.addItem("Massa Carbonara");
-        this.dessertSelector.addItem("Bolo");
-        this.dessertSelector.addItem("Pudim");
-        this.drinkSelector.addItem("Coca Cola Lata");
-        this.drinkSelector.addItem("Guarana Fruki");
+        this.itensOrderList.setModel(itemsPedido);
+        this.fullPriceLabel.setText("R$ 0.00");
+        for (Item item : this.estabelecimento.getItemsCardapio()) {
+            if(item instanceof Lanche) {
+                this.snackSelector.addItem(item.getNome());
+            } else if(item instanceof Prato) {
+                this.dishSelector.addItem(item.getNome());
+            } else if(item instanceof Bebida) {
+                this.drinkSelector.addItem(item.getNome());
+            } else if(item instanceof Sobremesa) {
+                this.dessertSelector.addItem(item.getNome());
+            }
+        }
     }
 
     /**
@@ -83,6 +86,7 @@ public class App extends javax.swing.JFrame {
         itensOrderList = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         fullPriceLabel = new javax.swing.JLabel();
+        removeItemButton = new javax.swing.JButton();
 
         confirmOrderModal.setModal(true);
 
@@ -139,6 +143,7 @@ public class App extends javax.swing.JFrame {
         jLabel3.setText("Ingredientes:");
 
         snacksIngredientsLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        snacksIngredientsLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         addSnackButton.setText("Adicionar");
         addSnackButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,6 +159,7 @@ public class App extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(snacksIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(snackSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,10 +167,9 @@ public class App extends javax.swing.JFrame {
                         .addComponent(snacksPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(snacksIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 181, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(addSnackButton)))
                 .addContainerGap())
         );
@@ -178,12 +183,12 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(snacksPriceLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(snacksIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(snacksIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addSnackButton)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Pratos"));
@@ -221,11 +226,11 @@ public class App extends javax.swing.JFrame {
                         .addComponent(dishesPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dishesIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(dishesIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(addDishButton)))
+                        .addComponent(addDishButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -238,11 +243,11 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(dishesPriceLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(dishesIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addDishButton)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dishesIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addDishButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -279,13 +284,13 @@ public class App extends javax.swing.JFrame {
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(drinksPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 181, Short.MAX_VALUE)
+                        .addComponent(addDrinkButton))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(drinksIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(addDrinkButton)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(drinksIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -298,9 +303,9 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(drinksPriceLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(drinksIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(drinksIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addDrinkButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -339,13 +344,13 @@ public class App extends javax.swing.JFrame {
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dessertsPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 188, Short.MAX_VALUE)
+                        .addComponent(addDessertButton))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dessertsIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(addDessertButton)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(dessertsIngredientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -358,10 +363,10 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(dessertsPriceLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(dessertsIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dessertsIngredientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(addDessertButton)
                 .addContainerGap())
         );
@@ -385,7 +390,12 @@ public class App extends javax.swing.JFrame {
 
         jLabel2.setText("Valor total:");
 
-        fullPriceLabel.setText("jLabel4");
+        removeItemButton.setText("Remover Item");
+        removeItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeItemButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -394,11 +404,17 @@ public class App extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fullPriceLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fullPriceLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(removeItemButton)
+                        .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,8 +424,12 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(fullPriceLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(removeItemButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -426,15 +446,12 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -442,12 +459,12 @@ public class App extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -464,14 +481,14 @@ public class App extends javax.swing.JFrame {
 
     private void snackSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snackSelectorActionPerformed
         Object item = this.snackSelector.getSelectedItem();
-         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
-        if(item.toString() == "X-Bacon") {
-            this.snacksIngredientsLabel.setText("Ingrendientes do X-Bacon");
-            this.snacksPriceLabel.setText("R$ 24,00");
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.snacksIngredientsLabel.setText("Erro ao obter informações do item");
+            this.snacksPriceLabel.setText("R$ 0,00");
             return;
         }
-        this.snacksIngredientsLabel.setText("Ingrendientes do X-Salada"); // change text to itemFound.getIngredients();
-        this.snacksPriceLabel.setText("R$ 20,00"); // change text to itemFound.getPrice();
+        this.snacksIngredientsLabel.setText(itemFound.getIngredientes());
+        this.snacksPriceLabel.setText("R$ " + itemFound.getPreco());
     }//GEN-LAST:event_snackSelectorActionPerformed
 
     private void finishOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishOrderButtonActionPerformed
@@ -483,60 +500,87 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_finishOrderButtonMouseClicked
 
     private void addSnackButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSnackButtonMouseClicked
-        String[] items = {this.snackSelector.getSelectedItem().toString()};
-        this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
+        Object item = this.snackSelector.getSelectedItem();
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        this.itemsPedido.addElement(item.toString());
+        Pedido pedido = this.cliente.getPedido();
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
     }//GEN-LAST:event_addSnackButtonMouseClicked
 
     private void dishSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dishSelectorActionPerformed
         Object item = this.dishSelector.getSelectedItem();
-         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
-        if(item.toString() == "Parmegiana") {
-            this.dishesIngredientsLabel.setText("Ingrendientes do Parmegiana");
-            this.dishesPriceLabel.setText("R$ 45,00");
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.dishesIngredientsLabel.setText("Erro ao obter informações do item");
+            this.dishesPriceLabel.setText("R$ 0,00");
             return;
         }
-        this.dishesIngredientsLabel.setText("Ingrendientes da Massa Carbonara"); // change text to itemFound.getIngredients();
-        this.dishesPriceLabel.setText("R$ 36,00"); // change text to itemFound.getPrice();
+        this.dishesIngredientsLabel.setText(itemFound.getIngredientes());
+        this.dishesPriceLabel.setText("R$ " + itemFound.getPreco());
     }//GEN-LAST:event_dishSelectorActionPerformed
 
     private void addDishButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDishButtonMouseClicked
-        String[] items = {this.dishSelector.getSelectedItem().toString()};
-        this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
+        Object item = this.dishSelector.getSelectedItem();
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        this.itemsPedido.addElement(item.toString());
+        Pedido pedido = this.cliente.getPedido();
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
     }//GEN-LAST:event_addDishButtonMouseClicked
 
     private void dessertSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dessertSelectorActionPerformed
         Object item = this.dessertSelector.getSelectedItem();
-         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
-        if(item.toString() == "Bolo") {
-            this.dessertsIngredientsLabel.setText("Ingrendientes do Bolo");
-            this.dessertsPriceLabel.setText("R$ 45,00");
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.dessertsIngredientsLabel.setText("Erro ao obter informações do item");
+            this.dessertsPriceLabel.setText("R$ 0,00");
             return;
         }
-        this.dessertsIngredientsLabel.setText("Ingrendientes do Pudim"); // change text to itemFound.getIngredients();
-        this.dessertsPriceLabel.setText("R$ 36,00"); // change text to itemFound.getPrice();
+        this.dessertsIngredientsLabel.setText(itemFound.getIngredientes());
+        this.dessertsPriceLabel.setText("R$ " + itemFound.getPreco());
     }//GEN-LAST:event_dessertSelectorActionPerformed
 
     private void addDessertButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDessertButtonMouseClicked
-        String[] items = {this.dessertSelector.getSelectedItem().toString()};
-        this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
+        Object item = this.dessertSelector.getSelectedItem();
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        this.itemsPedido.addElement(item.toString());
+        Pedido pedido = this.cliente.getPedido();
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
     }//GEN-LAST:event_addDessertButtonMouseClicked
 
     private void drinkSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinkSelectorActionPerformed
         Object item = this.drinkSelector.getSelectedItem();
-         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
-        if(item.toString() == "Coca Cola Lata") {
-            this.drinksIngredientsLabel.setText("Ingrendientes da Coca Cola Lata");
-            this.drinksPriceLabel.setText("R$ 45,00");
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.drinksIngredientsLabel.setText("Erro ao obter informações do item");
+            this.drinksPriceLabel.setText("R$ 0,00");
             return;
         }
-        this.drinksIngredientsLabel.setText("Ingrendientes da Guarana Fruki"); // change text to itemFound.getIngredients();
-        this.drinksPriceLabel.setText("R$ 36,00"); // change text to itemFound.getPrice();
+        this.drinksIngredientsLabel.setText(itemFound.getIngredientes());
+        this.drinksPriceLabel.setText("R$ " + itemFound.getPreco());
     }//GEN-LAST:event_drinkSelectorActionPerformed
 
     private void addDrinkButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDrinkButtonMouseClicked
-        String[] items = {this.drinkSelector.getSelectedItem().toString()};
-        this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
-    }//GEN-LAST:event_addDrinkButtonMouseClicked
+        Object item = this.drinkSelector.getSelectedItem();
+        Item itemFound = this.estabelecimento.getItemByName(item.toString());
+        this.itemsPedido.addElement(item.toString());
+        Pedido pedido = this.cliente.getPedido();
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());    }//GEN-LAST:event_addDrinkButtonMouseClicked
+
+    private void removeItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeItemButtonMouseClicked
+        String item = this.itensOrderList.getSelectedValue();
+        if(item == null) {
+            return;
+        }
+        Item itemFound = this.estabelecimento.getItemByName(item);
+        Pedido pedido = this.cliente.getPedido();
+        pedido.setFullPrice(pedido.getFullPrice() - itemFound.getPreco());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
+        this.itemsPedido.removeElementAt(this.itensOrderList.getSelectedIndex());
+    }//GEN-LAST:event_removeItemButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -609,6 +653,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton removeItemButton;
     private javax.swing.JComboBox<String> snackSelector;
     private javax.swing.JLabel snacksIngredientsLabel;
     private javax.swing.JLabel snacksPriceLabel;

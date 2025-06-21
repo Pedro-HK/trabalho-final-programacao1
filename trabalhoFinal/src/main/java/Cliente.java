@@ -4,6 +4,11 @@ public class Cliente {
     private String nome;
     private Pedido pedido;
 
+    public Cliente(String nome) {
+        this.nome = nome;
+        this.pedido = new Pedido();
+    }
+
     public ArrayList<Item> visualizarCardapio() {
         return new ArrayList<>();
     }
