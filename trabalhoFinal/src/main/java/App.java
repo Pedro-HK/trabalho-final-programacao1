@@ -28,6 +28,12 @@ public class App extends javax.swing.JFrame {
         initComponents();
         this.snackSelector.addItem("X-Salada");
         this.snackSelector.addItem("X-Bacon");
+        this.dishSelector.addItem("Parmegiana");
+        this.dishSelector.addItem("Massa Carbonara");
+        this.dessertSelector.addItem("Bolo");
+        this.dessertSelector.addItem("Pudim");
+        this.drinkSelector.addItem("Coca Cola Lata");
+        this.drinkSelector.addItem("Guarana Fruki");
     }
 
     /**
@@ -140,11 +146,6 @@ public class App extends javax.swing.JFrame {
                 addSnackButtonMouseClicked(evt);
             }
         });
-        addSnackButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addSnackButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,18 +188,24 @@ public class App extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Pratos"));
 
-        dishSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dishSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dishSelectorActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Preço:");
 
-        dishesPriceLabel.setText("jLabel2");
-
         jLabel7.setText("Ingredientes:");
 
-        dishesIngredientsLabel.setText("jLabel4");
         dishesIngredientsLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         addDishButton.setText("Adicionar");
+        addDishButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addDishButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -241,18 +248,24 @@ public class App extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Bebidas"));
 
-        drinkSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        drinkSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drinkSelectorActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("Preço:");
 
-        drinksPriceLabel.setText("jLabel2");
-
         jLabel15.setText("Ingredientes:");
 
-        drinksIngredientsLabel.setText("jLabel4");
         drinksIngredientsLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         addDrinkButton.setText("Adicionar");
+        addDrinkButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addDrinkButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -295,18 +308,24 @@ public class App extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Sobremesas"));
 
-        dessertSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dessertSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dessertSelectorActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Preço:");
 
-        dessertsPriceLabel.setText("jLabel2");
-
         jLabel11.setText("Ingredientes:");
 
-        dessertsIngredientsLabel.setText("jLabel4");
         dessertsIngredientsLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         addDessertButton.setText("Adicionar");
+        addDessertButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addDessertButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -361,6 +380,7 @@ public class App extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Informações do pedido"));
 
+        itensOrderList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(itensOrderList);
 
         jLabel2.setText("Valor total:");
@@ -442,12 +462,9 @@ public class App extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void addSnackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSnackButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addSnackButtonActionPerformed
-
     private void snackSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snackSelectorActionPerformed
         Object item = this.snackSelector.getSelectedItem();
+         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
         if(item.toString() == "X-Bacon") {
             this.snacksIngredientsLabel.setText("Ingrendientes do X-Bacon");
             this.snacksPriceLabel.setText("R$ 24,00");
@@ -455,7 +472,6 @@ public class App extends javax.swing.JFrame {
         }
         this.snacksIngredientsLabel.setText("Ingrendientes do X-Salada"); // change text to itemFound.getIngredients();
         this.snacksPriceLabel.setText("R$ 20,00"); // change text to itemFound.getPrice();
-        // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
     }//GEN-LAST:event_snackSelectorActionPerformed
 
     private void finishOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishOrderButtonActionPerformed
@@ -470,6 +486,57 @@ public class App extends javax.swing.JFrame {
         String[] items = {this.snackSelector.getSelectedItem().toString()};
         this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
     }//GEN-LAST:event_addSnackButtonMouseClicked
+
+    private void dishSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dishSelectorActionPerformed
+        Object item = this.dishSelector.getSelectedItem();
+         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
+        if(item.toString() == "Parmegiana") {
+            this.dishesIngredientsLabel.setText("Ingrendientes do Parmegiana");
+            this.dishesPriceLabel.setText("R$ 45,00");
+            return;
+        }
+        this.dishesIngredientsLabel.setText("Ingrendientes da Massa Carbonara"); // change text to itemFound.getIngredients();
+        this.dishesPriceLabel.setText("R$ 36,00"); // change text to itemFound.getPrice();
+    }//GEN-LAST:event_dishSelectorActionPerformed
+
+    private void addDishButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDishButtonMouseClicked
+        String[] items = {this.dishSelector.getSelectedItem().toString()};
+        this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
+    }//GEN-LAST:event_addDishButtonMouseClicked
+
+    private void dessertSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dessertSelectorActionPerformed
+        Object item = this.dessertSelector.getSelectedItem();
+         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
+        if(item.toString() == "Bolo") {
+            this.dessertsIngredientsLabel.setText("Ingrendientes do Bolo");
+            this.dessertsPriceLabel.setText("R$ 45,00");
+            return;
+        }
+        this.dessertsIngredientsLabel.setText("Ingrendientes do Pudim"); // change text to itemFound.getIngredients();
+        this.dessertsPriceLabel.setText("R$ 36,00"); // change text to itemFound.getPrice();
+    }//GEN-LAST:event_dessertSelectorActionPerformed
+
+    private void addDessertButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDessertButtonMouseClicked
+        String[] items = {this.dessertSelector.getSelectedItem().toString()};
+        this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
+    }//GEN-LAST:event_addDessertButtonMouseClicked
+
+    private void drinkSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinkSelectorActionPerformed
+        Object item = this.drinkSelector.getSelectedItem();
+         // Item itemFound = this.estabelecimento.getItensCardapio().find(item.toString());
+        if(item.toString() == "Coca Cola Lata") {
+            this.drinksIngredientsLabel.setText("Ingrendientes da Coca Cola Lata");
+            this.drinksPriceLabel.setText("R$ 45,00");
+            return;
+        }
+        this.drinksIngredientsLabel.setText("Ingrendientes da Guarana Fruki"); // change text to itemFound.getIngredients();
+        this.drinksPriceLabel.setText("R$ 36,00"); // change text to itemFound.getPrice();
+    }//GEN-LAST:event_drinkSelectorActionPerformed
+
+    private void addDrinkButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDrinkButtonMouseClicked
+        String[] items = {this.drinkSelector.getSelectedItem().toString()};
+        this.itensOrderList.setModel(new DefaultComboBoxModel<>(items));
+    }//GEN-LAST:event_addDrinkButtonMouseClicked
 
     /**
      * @param args the command line arguments
