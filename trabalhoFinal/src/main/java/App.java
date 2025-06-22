@@ -11,30 +11,37 @@ import javax.swing.DefaultListModel;
  *
  * @author phkno
  */
-public class NewOrderScreen extends javax.swing.JFrame {
+public class App extends javax.swing.JFrame {
     
-    private Estabelecimento estabelecimento;
-    private Cliente cliente;
-    private DefaultListModel itemsPedido = new DefaultListModel<>();
+    private Restaurant restaurant;
+    private Client client;
+    private DefaultListModel orderItems = new DefaultListModel<>();
+    private DefaultListModel activeOrders = new DefaultListModel<>();
+    private DefaultListModel itemsSelectedOrder = new DefaultListModel<>();
+    private DefaultListModel readyOrders = new DefaultListModel<>();
 
     /**
      * Creates new form App
      */
-    public NewOrderScreen() {
-        this.cliente = new Cliente("José");
-        this.estabelecimento = new Estabelecimento("Dog Mania");
+    public App() {
+        this.restaurant = new Restaurant("Dog Mania");
         initComponents();
-        this.itensOrderList.setModel(itemsPedido);
+        this.client = new Client();
+        this.itensOrderList.setModel(orderItems);
+        this.activeOrdersList.setModel(activeOrders);
+        this.itemsSelectedOrderList.setModel(itemsSelectedOrder);
+        this.preparingOrdersList.setModel(activeOrders);
+        this.readyOrdersList.setModel(readyOrders);
         this.fullPriceLabel.setText("R$ 0.00");
-        for (Item item : this.estabelecimento.getItemsCardapio()) {
-            if(item instanceof Lanche) {
-                this.snackSelector.addItem(item.getNome());
-            } else if(item instanceof Prato) {
-                this.dishSelector.addItem(item.getNome());
-            } else if(item instanceof Bebida) {
-                this.drinkSelector.addItem(item.getNome());
-            } else if(item instanceof Sobremesa) {
-                this.dessertSelector.addItem(item.getNome());
+        for (Item item : this.restaurant.getMenuItems()) {
+            if(item instanceof Snack) {
+                this.snackSelector.addItem(item.getName());
+            } else if(item instanceof Dish) {
+                this.dishSelector.addItem(item.getName());
+            } else if(item instanceof Drink) {
+                this.drinkSelector.addItem(item.getName());
+            } else if(item instanceof Dessert) {
+                this.dessertSelector.addItem(item.getName());
             }
         }
     }
@@ -48,10 +55,8 @@ public class NewOrderScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        newOrderScreen = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         nameInput = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -89,20 +94,35 @@ public class NewOrderScreen extends javax.swing.JFrame {
         fullPriceLabel = new javax.swing.JLabel();
         removeItemButton = new javax.swing.JButton();
         finishOrderButton = new javax.swing.JButton();
+        restaurantScreen = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        activeOrdersList = new javax.swing.JList<>();
+        jPanel7 = new javax.swing.JPanel();
+        concludeOrderButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        itemsSelectedOrderList = new javax.swing.JList<>();
+        jLabel10 = new javax.swing.JLabel();
+        selectedOrder = new javax.swing.JLabel();
+        ordersScreen = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        readyOrdersList = new javax.swing.JList<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        preparingOrdersList = new javax.swing.JList<>();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Novo Pedido");
-
-        jButton2.setText("Visão Estabelecimento");
-
-        jButton3.setText("Ver pedidos");
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         jLabel6.setText("Nome:");
 
-        nameInput.setText("Digite seu nome");
+        nameInput.setMinimumSize(new java.awt.Dimension(150, 22));
+        nameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameInputActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Lanches"));
 
@@ -374,7 +394,7 @@ public class NewOrderScreen extends javax.swing.JFrame {
                         .addComponent(fullPriceLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                         .addComponent(removeItemButton)
                         .addContainerGap())))
         );
@@ -407,45 +427,45 @@ public class NewOrderScreen extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout newOrderScreenLayout = new javax.swing.GroupLayout(newOrderScreen);
+        newOrderScreen.setLayout(newOrderScreenLayout);
+        newOrderScreenLayout.setHorizontalGroup(
+            newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newOrderScreenLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newOrderScreenLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(finishOrderButton))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newOrderScreenLayout.createSequentialGroup()
+                        .addGroup(newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(newOrderScreenLayout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(408, 408, 408)))
+                        .addGap(18, 18, 18)
+                        .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        newOrderScreenLayout.setVerticalGroup(
+            newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newOrderScreenLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(newOrderScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -455,143 +475,301 @@ public class NewOrderScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabbedPane1.addTab("Novo Pedido", newOrderScreen);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Restaurante: ");
+
+        jLabel8.setText("Pedidos Ativos:");
+
+        activeOrdersList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        activeOrdersList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                activeOrdersListValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(activeOrdersList);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        concludeOrderButton.setText("Concluir Pedido");
+        concludeOrderButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                concludeOrderButtonMouseClicked(evt);
+            }
+        });
+
+        itemsSelectedOrderList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane3.setViewportView(itemsSelectedOrderList);
+
+        jLabel10.setText("Visualizar pedido :");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(concludeOrderButton))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(selectedOrder)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(selectedOrder))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(concludeOrderButton)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout restaurantScreenLayout = new javax.swing.GroupLayout(restaurantScreen);
+        restaurantScreen.setLayout(restaurantScreenLayout);
+        restaurantScreenLayout.setHorizontalGroup(
+            restaurantScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(restaurantScreenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(restaurantScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(restaurantScreenLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(restaurantScreenLayout.createSequentialGroup()
+                        .addGroup(restaurantScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(restaurantScreenLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(43, 43, 43)))
+                        .addContainerGap())))
+        );
+        restaurantScreenLayout.setVerticalGroup(
+            restaurantScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(restaurantScreenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(299, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Visão Estabelecimento", restaurantScreen);
+
+        ordersScreen.setMinimumSize(new java.awt.Dimension(0, 0));
+
+        jScrollPane4.setViewportView(readyOrdersList);
+
+        jScrollPane5.setViewportView(preparingOrdersList);
+
+        jLabel12.setText("Pedidos prontos");
+
+        jLabel14.setText("Pedidos em preparo");
+
+        javax.swing.GroupLayout ordersScreenLayout = new javax.swing.GroupLayout(ordersScreen);
+        ordersScreen.setLayout(ordersScreenLayout);
+        ordersScreenLayout.setHorizontalGroup(
+            ordersScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ordersScreenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ordersScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+                .addGap(18, 44, Short.MAX_VALUE)
+                .addGroup(ordersScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                    .addComponent(jLabel12))
+                .addContainerGap())
+        );
+        ordersScreenLayout.setVerticalGroup(
+            ordersScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ordersScreenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ordersScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ordersScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Ver pedidos", ordersScreen);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton2)
-                        .addGap(47, 47, 47)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(562, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void snackSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snackSelectorActionPerformed
-        Object item = this.snackSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        if(itemFound == null) {
-            this.snacksIngredientsLabel.setText("Erro ao obter informações do item");
-            this.snacksPriceLabel.setText("R$ 0,00");
-            return;
-        }
-        this.snacksIngredientsLabel.setText(itemFound.getIngredientes());
-        this.snacksPriceLabel.setText("R$ " + itemFound.getPreco());
-    }//GEN-LAST:event_snackSelectorActionPerformed
 
     private void finishOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishOrderButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_finishOrderButtonActionPerformed
 
     private void finishOrderButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_finishOrderButtonMouseClicked
-        this.estabelecimento.gerarPedidoUnico(this.cliente.getPedido());
-        this.cliente = null;
+        this.restaurant.generateUniqueOrder(this.client.getPedido());
+        this.activeOrders.addElement(this.client.getPedido().getId() + "");
+        this.client = new Client();
+        this.orderItems.removeAllElements();
+        this.fullPriceLabel.setText("R$ 0.00");
     }//GEN-LAST:event_finishOrderButtonMouseClicked
-
-    private void addSnackButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSnackButtonMouseClicked
-        Object item = this.snackSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        this.itemsPedido.addElement(item.toString());
-        Pedido pedido = this.cliente.getPedido();
-        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
-        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
-    }//GEN-LAST:event_addSnackButtonMouseClicked
-
-    private void dishSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dishSelectorActionPerformed
-        Object item = this.dishSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        if(itemFound == null) {
-            this.dishesIngredientsLabel.setText("Erro ao obter informações do item");
-            this.dishesPriceLabel.setText("R$ 0,00");
-            return;
-        }
-        this.dishesIngredientsLabel.setText(itemFound.getIngredientes());
-        this.dishesPriceLabel.setText("R$ " + itemFound.getPreco());
-    }//GEN-LAST:event_dishSelectorActionPerformed
-
-    private void addDishButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDishButtonMouseClicked
-        Object item = this.dishSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        this.itemsPedido.addElement(item.toString());
-        Pedido pedido = this.cliente.getPedido();
-        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
-        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
-    }//GEN-LAST:event_addDishButtonMouseClicked
-
-    private void dessertSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dessertSelectorActionPerformed
-        Object item = this.dessertSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        if(itemFound == null) {
-            this.dessertsIngredientsLabel.setText("Erro ao obter informações do item");
-            this.dessertsPriceLabel.setText("R$ 0,00");
-            return;
-        }
-        this.dessertsIngredientsLabel.setText(itemFound.getIngredientes());
-        this.dessertsPriceLabel.setText("R$ " + itemFound.getPreco());
-    }//GEN-LAST:event_dessertSelectorActionPerformed
-
-    private void addDessertButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDessertButtonMouseClicked
-        Object item = this.dessertSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        this.itemsPedido.addElement(item.toString());
-        Pedido pedido = this.cliente.getPedido();
-        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
-        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
-    }//GEN-LAST:event_addDessertButtonMouseClicked
-
-    private void drinkSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinkSelectorActionPerformed
-        Object item = this.drinkSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        if(itemFound == null) {
-            this.drinksIngredientsLabel.setText("Erro ao obter informações do item");
-            this.drinksPriceLabel.setText("R$ 0,00");
-            return;
-        }
-        this.drinksIngredientsLabel.setText(itemFound.getIngredientes());
-        this.drinksPriceLabel.setText("R$ " + itemFound.getPreco());
-    }//GEN-LAST:event_drinkSelectorActionPerformed
-
-    private void addDrinkButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDrinkButtonMouseClicked
-        Object item = this.drinkSelector.getSelectedItem();
-        Item itemFound = this.estabelecimento.getItemByName(item.toString());
-        this.itemsPedido.addElement(item.toString());
-        Pedido pedido = this.cliente.getPedido();
-        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPreco());
-        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());    }//GEN-LAST:event_addDrinkButtonMouseClicked
 
     private void removeItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeItemButtonMouseClicked
         String item = this.itensOrderList.getSelectedValue();
         if(item == null) {
             return;
         }
-        Item itemFound = this.estabelecimento.getItemByName(item);
-        Pedido pedido = this.cliente.getPedido();
-        pedido.setFullPrice(pedido.getFullPrice() - itemFound.getPreco());
+        Item itemFound = this.restaurant.getItemByName(item);
+        Order pedido = this.client.getPedido();
+        pedido.removeItem(itemFound);
+        pedido.setFullPrice(pedido.getFullPrice() - itemFound.getPrice());
         this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
-        this.itemsPedido.removeElementAt(this.itensOrderList.getSelectedIndex());
+        this.orderItems.removeElementAt(this.itensOrderList.getSelectedIndex());
     }//GEN-LAST:event_removeItemButtonMouseClicked
+
+    private void addDrinkButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDrinkButtonMouseClicked
+        Object item = this.drinkSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        this.orderItems.addElement(item.toString());
+        Order pedido = this.client.getPedido();
+        pedido.addItem(itemFound);
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPrice());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
+    }//GEN-LAST:event_addDrinkButtonMouseClicked
+
+    private void drinkSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinkSelectorActionPerformed
+        Object item = this.drinkSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.drinksIngredientsLabel.setText("Erro ao obter informações do item");
+            this.drinksPriceLabel.setText("R$ 0,00");
+            return;
+        }
+        this.drinksIngredientsLabel.setText(itemFound.getIngredients());
+        this.drinksPriceLabel.setText("R$ " + itemFound.getPrice());
+    }//GEN-LAST:event_drinkSelectorActionPerformed
+
+    private void addDessertButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDessertButtonMouseClicked
+        Object item = this.dessertSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        this.orderItems.addElement(item.toString());
+        Order pedido = this.client.getPedido();
+        pedido.addItem(itemFound);
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPrice());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
+    }//GEN-LAST:event_addDessertButtonMouseClicked
+
+    private void dessertSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dessertSelectorActionPerformed
+        Object item = this.dessertSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.dessertsIngredientsLabel.setText("Erro ao obter informações do item");
+            this.dessertsPriceLabel.setText("R$ 0,00");
+            return;
+        }
+        this.dessertsIngredientsLabel.setText(itemFound.getIngredients());
+        this.dessertsPriceLabel.setText("R$ " + itemFound.getPrice());
+    }//GEN-LAST:event_dessertSelectorActionPerformed
+
+    private void addDishButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDishButtonMouseClicked
+        Object item = this.dishSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        this.orderItems.addElement(item.toString());
+        Order pedido = this.client.getPedido();
+        pedido.addItem(itemFound);
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPrice());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
+    }//GEN-LAST:event_addDishButtonMouseClicked
+
+    private void dishSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dishSelectorActionPerformed
+        Object item = this.dishSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.dishesIngredientsLabel.setText("Erro ao obter informações do item");
+            this.dishesPriceLabel.setText("R$ 0,00");
+            return;
+        }
+        this.dishesIngredientsLabel.setText(itemFound.getIngredients());
+        this.dishesPriceLabel.setText("R$ " + itemFound.getPrice());
+    }//GEN-LAST:event_dishSelectorActionPerformed
+
+    private void addSnackButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSnackButtonMouseClicked
+        Object item = this.snackSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        this.orderItems.addElement(item.toString());
+        Order pedido = this.client.getPedido();
+        pedido.addItem(itemFound);
+        pedido.setFullPrice(pedido.getFullPrice() + itemFound.getPrice());
+        this.fullPriceLabel.setText("R$ " + pedido.getFullPrice());
+    }//GEN-LAST:event_addSnackButtonMouseClicked
+
+    private void snackSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snackSelectorActionPerformed
+        Object item = this.snackSelector.getSelectedItem();
+        Item itemFound = this.restaurant.getItemByName(item.toString());
+        if(itemFound == null) {
+            this.snacksIngredientsLabel.setText("Erro ao obter informações do item");
+            this.snacksPriceLabel.setText("R$ 0,00");
+            return;
+        }
+        this.snacksIngredientsLabel.setText(itemFound.getIngredients());
+        this.snacksPriceLabel.setText("R$ " + itemFound.getPrice());
+    }//GEN-LAST:event_snackSelectorActionPerformed
+
+    private void nameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameInputActionPerformed
+        this.client.setNome(this.nameInput.getText());
+    }//GEN-LAST:event_nameInputActionPerformed
+
+    private void activeOrdersListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_activeOrdersListValueChanged
+        String selectedOrder = this.activeOrdersList.getSelectedValue();
+        if(selectedOrder == null) {
+            return;
+        }
+        this.itemsSelectedOrder.removeAllElements();
+        Order pedido = this.restaurant.getOrderById(Integer.parseInt(this.activeOrdersList.getSelectedValue()));
+        for(Item item : pedido.getItens()) {
+            this.itemsSelectedOrder.addElement(item.getName());
+        }
+        this.selectedOrder.setText("" + pedido.getId());
+    }//GEN-LAST:event_activeOrdersListValueChanged
+
+    private void concludeOrderButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_concludeOrderButtonMouseClicked
+        String selectedOrder = this.activeOrdersList.getSelectedValue();
+        if(selectedOrder == null) {
+            return;
+        }
+        this.itemsSelectedOrder.removeAllElements();
+        Order pedido = this.restaurant.getOrderById(Integer.parseInt(this.activeOrdersList.getSelectedValue()));
+        this.restaurant.updateOrderStatus(pedido, "Pronto");
+        this.activeOrders.removeElementAt(this.activeOrdersList.getSelectedIndex());
+        this.selectedOrder.setText("");
+        this.readyOrders.addElement(selectedOrder);
+    }//GEN-LAST:event_concludeOrderButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -610,14 +788,18 @@ public class NewOrderScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewOrderScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewOrderScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewOrderScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewOrderScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -626,16 +808,18 @@ public class NewOrderScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewOrderScreen().setVisible(true);
+                new App().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> activeOrdersList;
     private javax.swing.JButton addDessertButton;
     private javax.swing.JButton addDishButton;
     private javax.swing.JButton addDrinkButton;
     private javax.swing.JButton addSnackButton;
+    private javax.swing.JButton concludeOrderButton;
     private javax.swing.JComboBox<String> dessertSelector;
     private javax.swing.JLabel dessertsIngredientsLabel;
     private javax.swing.JLabel dessertsPriceLabel;
@@ -647,29 +831,43 @@ public class NewOrderScreen extends javax.swing.JFrame {
     private javax.swing.JLabel drinksPriceLabel;
     private javax.swing.JButton finishOrderButton;
     private javax.swing.JLabel fullPriceLabel;
+    private javax.swing.JList<String> itemsSelectedOrderList;
     private javax.swing.JList<String> itensOrderList;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField nameInput;
+    private javax.swing.JPanel newOrderScreen;
+    private javax.swing.JPanel ordersScreen;
+    private javax.swing.JList<String> preparingOrdersList;
+    private javax.swing.JList<String> readyOrdersList;
     private javax.swing.JButton removeItemButton;
+    private javax.swing.JPanel restaurantScreen;
+    private javax.swing.JLabel selectedOrder;
     private javax.swing.JComboBox<String> snackSelector;
     private javax.swing.JLabel snacksIngredientsLabel;
     private javax.swing.JLabel snacksPriceLabel;

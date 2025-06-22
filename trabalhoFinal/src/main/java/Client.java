@@ -1,12 +1,16 @@
 import java.util.ArrayList;
 
-public class Cliente {
+public class Client {
     private String nome;
-    private Pedido pedido;
+    private Order pedido;
 
-    public Cliente(String nome) {
+    public Client(String nome) {
         this.nome = nome;
-        this.pedido = new Pedido();
+        this.pedido = new Order();
+    }
+    
+    public Client() {
+        this.pedido = new Order();
     }
 
     public ArrayList<Item> visualizarCardapio() {
@@ -35,15 +39,15 @@ public class Cliente {
         return pedido != null ? pedido.getStatus() : "Sem pedido";
     }
 
-    public Pedido visualizarPedido() {
+    public Order visualizarPedido() {
         return pedido;
     }
 
-    public Pedido getPedido() {
+    public Order getPedido() {
         return pedido;
     }
 
-    public void setPedido(Pedido pedido) {
+    public void setPedido(Order pedido) {
         this.pedido = pedido;
     }
 

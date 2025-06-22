@@ -1,14 +1,22 @@
 import java.util.ArrayList;
 
-public class Pedido {
+public class Order {
     private int id;
     private ArrayList<Item> itens;
     private String status;
     private double fullPrice;
 
-    public Pedido() {
+    public Order() {
         this.itens = new ArrayList<>();
         this.status = "Pendente";
+    }
+    
+    public void addItem(Item item) {
+        this.itens.add(item);
+    }
+    
+    public void removeItem(Item item) {
+        this.itens.remove(item);
     }
 
     public int getId() {

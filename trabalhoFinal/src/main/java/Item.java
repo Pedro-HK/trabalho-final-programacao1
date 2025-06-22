@@ -1,35 +1,35 @@
 public abstract class Item {
-    private String nome;
-    private double preco;
-    private String ingredientes;
+    private String name;
+    private double price;
+    private String ingredients;
 
-    public Item(String nome, double preco, String ingredientes) {
-        this.nome = nome;
-        this.preco = preco;
-        this.ingredientes = ingredientes;
+    public Item(String name, double price, String ingredients) {
+        this.name = name;
+        this.price = price;
+        this.ingredients = ingredients;
     }
 
-    public String getIngredientes() {
-        return ingredientes;
+    public String getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredientes(String ingredientes) {
-        this.ingredientes = ingredientes;
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getPreco() {
-        return preco;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
