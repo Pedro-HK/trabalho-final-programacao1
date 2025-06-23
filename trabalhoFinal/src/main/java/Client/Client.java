@@ -1,4 +1,8 @@
+package Client;
 import java.util.ArrayList;
+
+import Item.Item;
+import Order.Order;
 
 public class Client {
     private String nome;

@@ -1,4 +1,12 @@
+package Restaurant;
 import java.util.ArrayList;
+
+import Item.Dessert;
+import Item.Dish;
+import Item.Drink;
+import Item.Item;
+import Item.Snack;
+import Order.Order;
 
 public class Restaurant {
     private String name;

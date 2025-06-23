@@ -2,6 +2,15 @@
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
+import Client.Client;
+import Item.Dessert;
+import Item.Dish;
+import Item.Drink;
+import Item.Item;
+import Item.Snack;
+import Order.Order;
+import Restaurant.Restaurant;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
